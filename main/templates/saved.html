@@ -1,0 +1,300 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'images/logo.ico' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <title>Saved | Recipes</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        #activepage {
+            padding: 5px 20px;
+            background-color: #ffd47f;
+            border-radius: 20px;
+        }
+
+        #activepage:hover {
+            color: black;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            height: 70px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .logo img {
+            margin-right: 5px;
+
+        }
+
+        .menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu a {
+            margin: 0 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all ease 0.3s;
+        }
+
+        .menu a:hover {
+            color: #fac24e;
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+        }
+
+        .user a {
+            text-decoration: none;
+            color: #333;
+            margin-right: 7px;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .user a:hover {
+            color: black;
+            transition: all ease 0.3s;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            width: 150px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        .dropdown{
+            position: absolute;
+            top: 47px;
+            right: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 10px 20px;
+            display: none;
+        }
+
+        .dropdown a{
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1rem;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .dropdown a:hover{
+            color: #fac24e;
+        }
+
+        .user:hover .dropdown{
+            display: block;
+        }
+
+        .heading{
+            font-size: 2rem;
+            font-weight: 500;
+            color: #333;
+            margin: 0 auto;
+            width: 60%;
+            text-align: center;
+        }
+        .posts{
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 90%;
+            /* background-color: #fff; */
+            margin: 0 auto;
+            margin-top: 5px;
+            min-height: 50vh;
+        }
+        .post-link{
+            text-decoration: none;
+            color: #333;
+        }
+        .post{
+            background-color: #fff;
+            width: 300px;
+            height: 410px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* padding: 10px 20px; */
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all ease 0.3s;
+            scale: 0.8;
+        }
+        .post:hover{
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+        .post .recipe-image{
+            width: 300px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 20px 20px 0 0;
+        }
+        .post .post-info{
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            padding: 0 20px;
+            /* margin-bottom: 10px; */
+        }
+        .post-info h3{
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-left: 2px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .post-info .author-details{
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .post-info .author-details img{
+            margin-left: -4px;
+        }
+        .post-info .time{
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        footer{
+            width: 100%;
+            height: 100px;
+            background-color: rgb(235, 235, 235);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="logo" height="32px" width="32px" />&nbsp;Recipe<span
+                style="color: #fac24e">Share</span>
+        </div>
+        <div class="menu">
+            <a href="{% url 'home' %}">Home</a>
+            <a href=" {% url 'explore' %}">Explore</a>
+            <a href="{% url 'planner' %}">Planner</a>
+            <a href="{% url 'shopping' %}">Shopping</a>
+            <a href="{% url 'saved' %}"  id="activepage">Saved</a>
+        </div>
+        <div class="user">
+            <a href="{% url 'profile_page' %}" class="user-profile">
+                <p style="overflow: hidden;"><i class="fa-solid fa-user"></i>&nbsp;{{ user.first_name }} {{user.last_name }}</p>
+            </a>
+            <div class="dropdown">
+                <a href="{% url 'profile_page' %}" class="">Your Profile</a>
+                <a href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+    </header>
+    <br><br><br><br>
+    <div class="heading">
+        <i class="fa-solid fa-bookmark"></i>&nbsp;Saved <span style="color: #fac24e;">Recipes</span>
+    </div>
+    <div class="posts">
+    </div>
+    <footer>
+        <p>&copy; 2023 Recipe<span style="color: #fac24e">Share</span>. All rights reserved</p>
+    </footer>
+    <script>
+        let posts = document.querySelector('.posts');
+        let uid = "{{user.id}}";
+        console.log(uid);
+        function get_saved(){
+            fetch(`/get_saved/?uid=${uid}`)
+            .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        if(data.data.length == 0){
+                            posts.innerHTML = `<h1>No Saved <span style="color: #fac24e;">Recipes</span></h1>`;
+                        }
+                        let post = '';
+                        data.data.forEach(element => {
+                            console.log(element);
+                            post_code = `/post_details/${element.recipe_id}`;
+                            post += `<a class="post-link" href="${post_code}"><div class="post">
+                    <img class="recipe-image" src="${element.recipe_image}" alt="recipe-image">
+                    <div class="post-info">
+                        <h3>${element.recipe_name}</h3>
+                        <div class="author-details">
+                            <img src="{% static 'images/profile.png'%}" width="25px" height="25px" style="border-radius:50%;">&nbsp;${element.user_first_name} ${element.user_last_name}        
+                        </div>
+                        <div class="time">
+                            <i class="fa-regular fa-clock"></i>&nbsp;${element.recipe_time} minutes
+                        </div>
+                        <div class="type">
+                            <i class="fa-solid fa-burger"></i>&nbsp;${element.recipe_type}
+                        </div>
+                    </div>
+                    </div>
+                `;
+                        });
+                        document.querySelector('.posts').innerHTML += post;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            };
+        get_saved();
+    </script>
+</body>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <title>RecipeShare</title>
+    <link rel="icon" href="{% static 'images/logo.ico' %}" />
+    <style>
+      html{
+        scroll-behavior: smooth;
+      }
+      * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+    }
+    img{
+      user-select: none;
+    }
+    body {
+      font-family: "Poppins", sans-serif;
+      /* background-image: linear-gradient(rgba(0, 0, 0,0.8),rgba(0,0,0,0.8)),url('images/bg.jpg'); */
+      width: fit-content;
+      background-color: black;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    header {
+      /* background-color: white; */
+      /* background-color: rgba(0, 0, 0, 0.7); */
+      /* backdrop-filter: blur(10px); */
+      width: 100%;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 0 30px;
+      z-index: 1;
+      /* box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.2); */
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+      font-size: 25px;
+      font-weight: 600;
+      color: white;
+    }
+
+    header .logo img {
+      margin-right: 10px;
+    }
+
+    header .menu {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 35%;
+    }
+
+    header .menu a {
+      color: white;
+      font-size: 16px;
+      text-decoration: none;
+      /* margin: 0 10px; */
+      transition: all 0.3s ease;
+    }
+    header .menu a:hover {
+      color: #fac24e;
+    }
+    header .login {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 10%;
+    }
+    header button {
+      background-color: white;
+      color: black;
+      border: none;
+      outline: none;
+      padding: 7px 25px;
+      border-radius: 20px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    header button:hover {
+      background-color: #fac24e;
+    }
+    .discover {
+      position: absolute;
+      width: 100%;
+      background-color: black;
+      z-index: -1;
+    }
+
+    /* .discover img{
+            width: 100%;
+            height: 80vh;
+            object-fit: cover;
+            opacity: 0.3;
+        } */
+    .discover video {
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .discover-text {
+      position: absolute;
+      font-size: 25px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+    }
+
+    .discover button {
+      background-color: #fac24e;
+      color: black;
+      border: none;
+      outline: none;
+      margin-top: 20px;
+      padding: 10px 30px;
+      border-radius: 20px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .discover button:hover {
+      background-color: white;
+    }
+
+    .explore {
+      position: absolute;
+      top: 100vh;
+      width: 100%;
+      height: auto;
+    }
+      .explore h1 {
+        color: white;
+        font-size: 40px;
+        font-weight: 600;
+        text-align: center;
+        margin-top: 30px;
+      }
+      .recipes {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        grid-gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 50px;
+        width: 100%;
+        height: 100%;
+        padding: 0 40px;
+      }
+      .recipe {
+        width: 270px;
+        height: 320px;
+        background-color: #fac24e;
+        /* margin: auto 20px; */
+        border-radius: 20px;
+        box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        overflow: hidden;
+      }
+      .recipe img {
+        width: 270px;
+        height: 180px;
+        border-radius: 20px 0 0 0;
+        object-fit: cover;
+      }
+      .recipe .info {
+        padding: 15px;
+      }
+      .recipe:hover {
+        transform: scale(1.05);
+      }
+      .acknow {
+        color: white;
+        grid-row: 2/4;
+        grid-column: 3/5;
+        font-size: 40px;
+        line-height: 140%;
+        font-weight: bold;
+      }
+      .aboutus {
+        position: absolute;
+        top: 230vh;
+        width: 100%;
+        height: 100vh;
+        color: white;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      .about {
+        width: 70%;
+        padding: 0 40px;
+      }
+      .about-us-logo {
+        width: 30%;
+      }
+      .about-us-logo img {
+        margin-left: 90px;
+        width: 50%;
+        height: 50%;
+        object-fit: cover;
+      }
+      .about h1 {
+        font-size: 40px;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+      .contact {
+        position: absolute;
+        top: 300vh;
+        width: 100%;
+        height: 100vh;
+        color: white;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      .contact-links {
+        display: flex;
+        justify-content: space-around;
+        width: 30%;
+        font-size: 30px;
+      }
+      .contact-links a {
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      .contact-links a:hover {
+        color: #fac24e;
+      }
+      .contact-links i {
+        cursor: pointer;
+      }
+      .contact h1 {
+        font-size: 40px;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+      .contact-links i:hover {
+        color: #fac24e;
+      }
+      .contact-links i {
+        cursor: pointer;
+      }
+      .contact-links i:hover {
+        color: #fac24e;
+      }
+      .footer {
+        position: absolute;
+        top: 380vh;
+        width: 100%;
+        height: 10vh;
+        color: grey;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img
+          src="{% static 'images/logo.png' %}"
+          alt="logo"
+          height="32px"
+          width="32px"
+        />&nbsp;Recipe<span style="color: #fac24e">Share</span>
+      </div>
+      <div class="menu">
+        <a href="#aboutus">About Us</a>
+        <a href="#explore">Explore</a>
+        <a href="#contact">Contact</a>
+        <a href="{% url 'login'%}"><button>Login</button></a>
+      </div>
+
+    </header>
+    <div class="discover">
+      <!-- <img src="images/bg.jpg" alt="bg" width="100%" height="50%"> -->
+      <video autoplay loop muted>
+        <source src="{% static 'images/video.mp4' %}" type="video/mp4" />
+      </video>
+      <div class="discover-text">
+        <h1>Discover
+          <span id="element" style="color: #fac24e;"></span>.
+        </h1>
+        <!-- <span style="color: #fac24e">Recipes</span> -->
+        <p>Find the best recipes from around the world</p>
+        <a href="{% url 'register' %}"><button>Get Started</button></a>
+      </div>
+    </div>
+    <div class="explore" id="explore">
+      <h1>
+        Explore <span style="color: #fac24e">Recipies</span>.
+      </h1>
+      <div class="recipes">
+        <!-- recipe-1 -->
+        <div class="recipe">
+          <div class="image">
+            <img src="{% static 'images/dosa.jpg'%}" alt="recipe1" />
+          </div>
+          <div class="info">
+            <h3>Dosa</h3>
+            <p>
+              thin, crispy, and golden-brown, enjoyed with a variety of chutneys
+              and sambar.
+            </p>
+          </div>
+        </div>
+        <!-- recipie-2 -->
+        <div class="recipe">
+          <div class="image">
+            <img src="{%static 'images/lunch.jpg'%}" alt="recipe2" />
+          </div>
+          <div class="info">
+            <h3>South Indian Thali</h3>
+            <p>
+              rice accompanied by curries, lentil-based dishes like sambar and
+              rasam.
+            </p>
+          </div>
+        </div>
+        <!-- recipie-3 -->
+        <div class="recipe">
+          <div class="image">
+            <img
+              src="{%static 'images/cheese-garlic-roast.jpg'%}"
+              alt="recipe3"
+            />
+          </div>
+          <div class="info">
+            <h3>Cheese Garlic Roast</h3>
+            <p>
+              delectable dish that combines the rich and savory flavors of
+              cheese and garlic.
+            </p>
+          </div>
+        </div>
+        <!-- recipie-4 -->
+        <div class="recipe">
+          <div class="image">
+            <img
+              src="{%static 'images/crispy-thready-chicken.jpg'%}"
+              alt="recipe4"
+            />
+          </div>
+          <div class="info">
+            <h3>Crispy Thread Chicken</h3>
+            <p>
+              delightful chicken pieces are coated with a thin and crispy layer,
+              resembling threads.
+            </p>
+          </div>
+        </div>
+        <!-- recipie-5 -->
+        <div class="recipe">
+          <div class="image">
+            <img src="{%static 'images/pasta.jpg'%}" alt="recipe5" />
+          </div>
+          <div class="info">
+            <h3>Pasta Salad</h3>
+            <p>
+              refreshing dish that combines cooked pasta with a variety of fresh
+              vegetables.
+            </p>
+          </div>
+        </div>
+        <!-- recipie-6 -->
+        <div class="recipe">
+          <div class="image">
+            <img
+              src="{%static 'images/Fluffy-Lemon-Pudding-Dessert.jpg'%}"
+              alt="recipe6"
+            />
+          </div>
+          <div class="info">
+            <h3>Fluffy Lemon Pudding</h3>
+            <p>
+              delightful dessert that combines the tangy flavor of lemon with a
+              light airy texture.
+            </p>
+          </div>
+        </div>
+        <div class="acknow">
+          And many more types of <span style="color: #fac24e">Recipes</span> are
+          avaliable, Including Breakfast, Lunch, Dinner, Snacks, Desserts,
+          Soups, and <span id="element1" style="color: #fac24e"> many more</span>.
+        </div>
+      </div>
+    </div>
+    <div class="aboutus" id="aboutus">
+      <div class="about">
+        <h1>About <span style="color: #fac24e">Us</span></h1>
+        <h2>Welcome to Recipe<span style="color: #fac24e">Share,</span></h2>
+        <p>
+          We are a team of 4 members, who are passionate about cooking and
+          sharing recipes. We have created this website to share our recipes
+          with the world. We hope you enjoy our recipes and share them with your
+          friends and family.
+        </p>
+        <br />
+        <h2>Our Mission</h2>
+        <p>
+          Our mission is simple yet profound: to make cooking an enjoyable and
+          shared experience. We believe that everyone has a recipe to share,
+          whether it's a treasured family secret or a newly discovered culinary
+          experiment. By providing a platform where budding chefs, seasoned
+          cooks, and everyone in between can come together, we're creating a
+          virtual cookbook that's as diverse as it is delicious.
+        </p>
+      </div>
+      <div class="about-us-logo">
+        <img src="{% static 'images/about-us.png' %}" alt="logo" />
+      </div>
+    </div>
+    <div class="contact" id="contact">
+        <h1 id="contact">Contact <span style="color: #fac24e;">Us</span>.</h1>
+        <div class="contact-links">
+            <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </div>
+    <div class="footer">
+      <p class="copy">
+        &copy; 2021 Recipe<span style="color: #fac24e">Share</span>. All Rights
+        Reserved.
+      </p>
+    </div>
+<script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script>
+  var typed = new Typed('#element', {
+    strings: ['BreakFasts', 'Lunches', 'Dinners', 'Snacks', 'Desserts', 'Soups','Recipies'],
+    typeSpeed: 50,
+  });
+  var typed = new Typed('#element1', {
+    strings: ['many more'],
+    typeSpeed: 50,
+  });
+</script>
+</body>
+  </body>
+</html>

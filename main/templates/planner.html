@@ -1,0 +1,680 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'images/logo.ico' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Shopping List | Recipes</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        #activepage {
+            padding: 5px 20px;
+            background-color: #ffd47f;
+            border-radius: 20px;
+        }
+
+        #activepage:hover {
+            color: black;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            height: 70px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .logo img {
+            margin-right: 5px;
+
+        }
+
+        .menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu a {
+            margin: 0 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all ease 0.3s;
+        }
+
+        .menu a:hover {
+            color: #fac24e;
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+        }
+
+        .user a {
+            text-decoration: none;
+            color: #333;
+            margin-right: 7px;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .user a:hover {
+            color: black;
+            transition: all ease 0.3s;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            width: 150px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        .dropdown{
+            position: absolute;
+            top: 47px;
+            right: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 10px 20px;
+            display: none;
+        }
+
+        .dropdown a{
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1rem;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .dropdown a:hover{
+            color: #fac24e;
+        }
+
+        .user:hover .dropdown{
+            display: block;
+        }
+
+        .heading{
+            font-size: 2rem;
+            font-weight: 500;
+            color: #333;
+            margin: 0 auto;
+            width: 60%;
+            text-align: center;
+        }
+        .day{
+            font-size: 2.0rem;
+            font-weight: bold;
+            color: #333;
+            margin: 0 auto;
+            width: 60%;
+            text-align: center;
+            margin-top: 15px;
+        }
+        .divider{
+            width: 80%;
+            height: 1px;
+            background-color: rgb(198, 198, 198);
+            margin: 10px 0;
+        }
+        .meal-container{
+            display: flex;
+            width: 80% ;
+            background-color: #fff;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 auto;
+            height: 380px;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+        }
+        .morning, .afternoon, .evening{
+            width: 30%;
+            height: 100%;
+            border-radius: 10px;
+            background-color: #f5f5f5;
+            padding:10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: top;
+        }
+        .meal-title{
+            height: 10%;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #333;
+            margin: 0 auto;
+            width: 100%;
+            text-align: center;
+        }
+        .meal-image{
+            height: 70%;
+            width: 70%;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .meal-link{
+            height: 10%;
+        }
+        .meal-link a{
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.5rem;
+            display: block;
+        }
+        footer{
+            width: 100%;
+            height: 100px;
+            background-color: rgb(235, 235, 235);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="logo" height="32px" width="32px" />&nbsp;Recipe<span
+                style="color: #fac24e">Share</span>
+        </div>
+        <div class="menu">
+            <a href="{% url 'home' %}">Home</a>
+            <a href=" {% url 'explore' %}">Explore</a>
+            <a href="{% url 'planner' %}"  id="activepage">Planner</a>
+            <a href="{% url 'shopping' %}">Shopping</a>
+            <a href="{% url 'saved' %}">Saved</a>
+        </div>
+        <div class="user">
+            <a href="{% url 'profile_page' %}" class="user-profile">
+                <p style="overflow: hidden;"><i class="fa-solid fa-user"></i>&nbsp;{{ user.first_name }} {{user.last_name }}</p>
+            </a>
+            <div class="dropdown">
+                <a href="{% url 'profile_page' %}" class="">Your Profile</a>
+                <a href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+    </header>
+    <br><br><br><br>
+    <div class="heading">
+        <i class="fa-solid fa-utensils"></i>&nbsp;Meal <span style="color: #fac24e;">Planner</span>
+        <br>
+        <span style="font-size: 1.5rem; font-weight: 300; color: #333;">Hi <span style="color: #fac24e;">{{ user.first_name }} {{ user.last_name }}</span>! Here's your meal plan for the week.</span>
+    </div>
+        <br><br>
+        <!-- <div class="day">Monday</div>
+        <div class="meal-container">
+            <div class="morning monday-morning">
+                <div class="meal-title">Breakfast</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="{% static 'images/dosa.jpg' %}" alt="meal1" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#">Biriyani</a></div>
+            </div>
+            <div class="afternoon monday-afternoon">
+                <div class="meal-title">Lunch</div> <div class="divider"></div>
+            </div>
+            <div class="evening monday-evening">
+                <div class="meal-title">Dinner</div> <div class="divider"></div>
+            </div>
+        </div> -->
+        <!-- MONDAY -->
+        <div class="day">Monday</div>
+        <div class="meal-container">
+            <div class="morning monday-morning">
+                <div class="meal-title">Breakfast</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+            <div class="afternoon monday-afternoon">
+                <div class="meal-title">Lunch</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+            <div class="evening monday-evening">
+                <div class="meal-title">Dinner</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+        </div>
+        <!-- TUESDAY -->
+        <div class="day">Tuesday</div>
+        <div class="meal-container">
+            <div class="morning tuesday-morning">
+                <div class="meal-title">Breakfast</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+            <div class="afternoon tuesday-afternoon">
+                <div class="meal-title">Lunch</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+            <div class="evening tuesday-evening">
+                <div class="meal-title">Dinner</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+        </div>
+        <!-- WEDNESDAY -->
+        <div class="day">Wednesday</div>
+        <div class="meal-container">
+            <div class="morning wednesday-morning">
+                <div class="meal-title">Breakfast</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+            <div class="afternoon wednesday-afternoon">
+                <div class="meal-title">Lunch</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+            <div class="evening wednesday-evening">
+                <div class="meal-title">Dinner</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+        </div>
+        <!-- THURSDAY -->
+        <div class="day">Thursday</div>
+        <div class="meal-container">
+            <div class="morning thursday-morning">
+                <div class="meal-title">Breakfast</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+            <div class="afternoon thursday-afternoon">
+                <div class="meal-title">Lunch</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+            <div class="evening thursday-evening">
+                <div class="meal-title">Dinner</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+        </div>
+        <!-- FRIDAY -->
+        <div class="day">Friday</div>
+        <div class="meal-container">
+            <div class="morning friday-morning">
+                <div class="meal-title">Breakfast</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+            <div class="afternoon friday-afternoon">
+                <div class="meal-title">Lunch</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+            <div class="evening friday-evening">
+                <div class="meal-title">Dinner</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+        </div>
+        <!-- SATURDAY -->
+        <div class="day">Saturday</div>
+        <div class="meal-container">
+            <div class="morning saturday-morning">
+                <div class="meal-title">Breakfast</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+            <div class="afternoon saturday-afternoon">
+                <div class="meal-title">Lunch</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+            <div class="evening saturday-evening">
+                <div class="meal-title">Dinner</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+        </div>
+        <!-- SUNDAY -->
+        <div class="day">Sunday</div>
+        <div class="meal-container">
+            <div class="morning sunday-morning">
+                <div class="meal-title">Breakfast</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+            <div class="afternoon sunday-afternoon">
+                <div class="meal-title">Lunch</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+            <div class="evening sunday-evening">
+                <div class="meal-title">Dinner</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+        </div>
+    <footer>
+        <p>&copy; 2023 Recipe<span style="color: #fac24e">Share</span>. All rights reserved</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+        let uid = "{{user.id}}";
+        console.log(uid);
+       fetch(`planner_data?uid=${uid}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                let monday_morning = document.querySelector('.monday-morning');
+                let monday_afternoon = document.querySelector('.monday-afternoon');
+                let monday_evening = document.querySelector('.monday-evening');
+                let tuesday_morning = document.querySelector('.tuesday-morning');
+                let tuesday_afternoon = document.querySelector('.tuesday-afternoon');
+                let tuesday_evening = document.querySelector('.tuesday-evening');
+                let wednesday_morning = document.querySelector('.wednesday-morning');
+                let wednesday_afternoon = document.querySelector('.wednesday-afternoon');
+                let wednesday_evening = document.querySelector('.wednesday-evening');
+                let thursday_morning = document.querySelector('.thursday-morning');
+                let thursday_afternoon = document.querySelector('.thursday-afternoon');
+                let thursday_evening = document.querySelector('.thursday-evening');
+                let friday_morning = document.querySelector('.friday-morning');
+                let friday_afternoon = document.querySelector('.friday-afternoon');
+                let friday_evening = document.querySelector('.friday-evening');
+                let saturday_morning = document.querySelector('.saturday-morning');
+                let saturday_afternoon = document.querySelector('.saturday-afternoon');
+                let saturday_evening = document.querySelector('.saturday-evening');
+                let sunday_morning = document.querySelector('.sunday-morning');
+                let sunday_afternoon = document.querySelector('.sunday-afternoon');
+                let sunday_evening = document.querySelector('.sunday-evening');
+
+                if (data.data[0].recipe_id == ""){
+                    monday_morning.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    monday_morning.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }
+                else{
+                post_code = `/post_details/${data.data[0].recipe_id}`;
+                monday_morning.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[0].recipe_name}</a>`;
+                monday_morning.querySelector('.meal-image').innerHTML = `<img src="${data.data[0].recipe_image}" height="100%" width="100%">`;
+                }
+                
+                if (data.data[1].recipe_id == ""){
+                    monday_afternoon.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    monday_afternoon.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }
+                else{
+                post_code = `/post_details/${data.data[1].recipe_id}`;
+                monday_afternoon.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[1].recipe_name}</a>`;
+                monday_afternoon.querySelector('.meal-image').innerHTML = `<img src="${data.data[1].recipe_image}" height="100%" width="100%">`;
+                }
+                
+                if (data.data[2].recipe_id == ""){
+                    monday_evening.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    monday_evening.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }
+                else{
+                post_code = `/post_details/${data.data[2].recipe_id}`;
+                monday_evening.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[2].recipe_name}</a>`;
+                monday_evening.querySelector('.meal-image').innerHTML = `<img src="${data.data[2].recipe_image}" height="100%" width="100%">`;
+                }
+
+                if (data.data[3].recipe_id == ""){
+                    tuesday_morning.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    tuesday_morning.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }
+                else{
+                post_code = `/post_details/${data.data[3].recipe_id}`;
+                tuesday_morning.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[3].recipe_name}</a>`;
+                tuesday_morning.querySelector('.meal-image').innerHTML = `<img src="${data.data[3].recipe_image}" height="100%" width="100%">`;
+                }
+
+                if (data.data[4].recipe_id == ""){
+                    tuesday_afternoon.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    tuesday_afternoon.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }
+                else{
+                post_code = `/post_details/${data.data[4].recipe_id}`;
+                tuesday_afternoon.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[4].recipe_name}</a>`;
+                tuesday_afternoon.querySelector('.meal-image').innerHTML = `<img src="${data.data[4].recipe_image}" height="100%" width="100%">`;
+                }
+
+                if (data.data[5].recipe_id == ""){
+                    tuesday_evening.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    tuesday_evening.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }
+                else{
+                post_code = `/post_details/${data.data[5].recipe_id}`;
+                tuesday_evening.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[5].recipe_name}</a>`;
+                tuesday_evening.querySelector('.meal-image').innerHTML = `<img src="${data.data[5].recipe_image}" height="100%" width="100%">`;
+                }
+
+                if (data.data[6].recipe_id == ""){
+                    wednesday_morning.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    wednesday_morning.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }
+                else{
+                post_code = `/post_details/${data.data[6].recipe_id}`;
+                wednesday_morning.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[6].recipe_name}</a>`;
+                wednesday_morning.querySelector('.meal-image').innerHTML = `<img src="${data.data[6].recipe_image}" height="100%" width="100%">`;
+                }
+
+                if (data.data[7].recipe_id == ""){
+                    wednesday_afternoon.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    wednesday_afternoon.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }
+                else{
+                post_code = `/post_details/${data.data[7].recipe_id}`;
+                wednesday_afternoon.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[7].recipe_name}</a>`;
+                wednesday_afternoon.querySelector('.meal-image').innerHTML = `<img src="${data.data[7].recipe_image}" height="100%" width="100%">`;
+                }
+
+                if (data.data[8].recipe_id == ""){
+                    wednesday_evening.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    wednesday_evening.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }
+                else{
+                post_code = `/post_details/${data.data[8].recipe_id}`;
+                wednesday_evening.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[8].recipe_name}</a>`;
+                wednesday_evening.querySelector('.meal-image').innerHTML = `<img src="${data.data[8].recipe_image}" height="100%" width="100%">`;
+                }
+
+                if (data.data[9].recipe_id == ""){
+                    thursday_morning.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    thursday_morning.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }else{
+                post_code = `/post_details/${data.data[9].recipe_id}`;
+                thursday_morning.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[9].recipe_name}</a>`;
+                thursday_morning.querySelector('.meal-image').innerHTML = `<img src="${data.data[9].recipe_image}" height="100%" width="100%">`;
+                }
+
+                if (data.data[10].recipe_id == ""){
+                    thursday_afternoon.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    thursday_afternoon.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }else{
+                post_code = `/post_details/${data.data[10].recipe_id}`;
+                thursday_afternoon.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[10].recipe_name}</a>`;
+                thursday_afternoon.querySelector('.meal-image').innerHTML = `<img src="${data.data[10].recipe_image}" height="100%" width="100%">`;
+                }
+
+                if (data.data[11].recipe_id == ""){
+                    thursday_evening.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    thursday_evening.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }else{
+                post_code = `/post_details/${data.data[11].recipe_id}`;
+                thursday_evening.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[11].recipe_name}</a>`;
+                thursday_evening.querySelector('.meal-image').innerHTML = `<img src="${data.data[11].recipe_image}" height="100%" width="100%">`;
+                }
+
+                if (data.data[12].recipe_id == ""){
+                    friday_morning.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    friday_morning.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }else{
+                post_code = `/post_details/${data.data[12].recipe_id}`;
+                friday_morning.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[12].recipe_name}</a>`;
+                friday_morning.querySelector('.meal-image').innerHTML = `<img src="${data.data[12].recipe_image}" height="100%" width="100%">`;
+                }
+
+                if (data.data[13].recipe_id == ""){
+                    friday_afternoon.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    friday_afternoon.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }else{
+                post_code = `/post_details/${data.data[13].recipe_id}`;
+                friday_afternoon.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[13].recipe_name}</a>`;
+                friday_afternoon.querySelector('.meal-image').innerHTML = `<img src="${data.data[13].recipe_image}" height="100%" width="100%">`;
+                }
+
+                if (data.data[14].recipe_id == ""){
+                    friday_evening.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    friday_evening.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }else{
+                post_code = `/post_details/${data.data[14].recipe_id}`;
+                friday_evening.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[14].recipe_name}</a>`;
+                friday_evening.querySelector('.meal-image').innerHTML = `<img src="${data.data[14].recipe_image}" height="100%" width="100%">`;
+                }
+
+                if (data.data[15].recipe_id == ""){
+                    saturday_morning.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    saturday_morning.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }else{
+                post_code = `/post_details/${data.data[15].recipe_id}`;
+                saturday_morning.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[15].recipe_name}</a>`;
+                saturday_morning.querySelector('.meal-image').innerHTML = `<img src="${data.data[15].recipe_image}" height="100%" width="100%">`;
+                }
+
+                if (data.data[16].recipe_id == ""){
+                    saturday_afternoon.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    saturday_afternoon.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }else{
+                post_code = `/post_details/${data.data[16].recipe_id}`;
+                saturday_afternoon.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[16].recipe_name}</a>`;
+                saturday_afternoon.querySelector('.meal-image').innerHTML = `<img src="${data.data[16].recipe_image}" height="100%" width="100%">`;
+                }
+
+                if (data.data[17].recipe_id == ""){
+                    saturday_evening.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    saturday_evening.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }else{
+                post_code = `/post_details/${data.data[17].recipe_id}`;
+                saturday_evening.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[17].recipe_name}</a>`;
+                saturday_evening.querySelector('.meal-image').innerHTML = `<img src="${data.data[17].recipe_image}" height="100%" width="100%">`;
+                }
+
+                if (data.data[18].recipe_id == ""){
+                    sunday_morning.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    sunday_morning.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }else{
+                post_code = `/post_details/${data.data[18].recipe_id}`;
+                sunday_morning.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[18].recipe_name}</a>`;
+                sunday_morning.querySelector('.meal-image').innerHTML = `<img src="${data.data[18].recipe_image}" height="100%" width="100%">`;
+                }
+
+                if (data.data[19].recipe_id == ""){
+                    sunday_afternoon.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    sunday_afternoon.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }else{
+                post_code = `/post_details/${data.data[19].recipe_id}`;
+                sunday_afternoon.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[19].recipe_name}</a>`;
+                sunday_afternoon.querySelector('.meal-image').innerHTML = `<img src="${data.data[19].recipe_image}" height="100%" width="100%">`;
+                }
+
+                if (data.data[20].recipe_id == ""){
+                    sunday_evening.querySelector('.meal-link').innerHTML = `<a href="#">No Recipe</a>`;
+                    sunday_evening.querySelector('.meal-image').innerHTML = `<img src="{% static 'images/no_recipe.jpg' %}" height="100%" width="100%">`;
+                }else{
+                post_code = `/post_details/${data.data[20].recipe_id}`;
+                sunday_evening.querySelector('.meal-link').innerHTML = `<a href="${post_code}">${data.data[20].recipe_name}</a>`;
+                sunday_evening.querySelector('.meal-image').innerHTML = `<img src="${data.data[20].recipe_image}" height="100%" width="100%">`;
+                }
+
+                
+            })
+    </script>
+</body>

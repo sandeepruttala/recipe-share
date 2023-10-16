@@ -1,0 +1,23 @@
+        <div class="meal-container">
+            <div class="morning wednesday-morning">
+                <div class="meal-title">Breakfast</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+            <div class="afternoon wednesday-afternoon">
+                <div class="meal-title">Lunch</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+            <div class="evening wednesday-evening">
+                <div class="meal-title">Dinner</div>
+                <div class="divider"></div>
+                <div class="meal-image"><img src="" alt="" height="100%" width="100%"></div>
+                <div class="divider"></div>
+                <div class="meal-link"><a href="#"></a></div>
+            </div>
+        </div>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'images/logo.ico' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <title>post:{{ post.id }}</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        #activepage {
+            padding: 5px 20px;
+            background-color: #ffd47f;
+            border-radius: 20px;
+        }
+
+        #activepage:hover {
+            color: black;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            height: 70px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .logo img {
+            margin-right: 5px;
+
+        }
+
+        .menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu a {
+            margin: 0 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all ease 0.3s;
+        }
+
+        .menu a:hover {
+            color: #fac24e;
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+        }
+
+        .user a {
+            text-decoration: none;
+            color: #333;
+            margin-right: 7px;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .user a:hover {
+            color: black;
+            transition: all ease 0.3s;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            width: 150px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        .dropdown{
+            position: absolute;
+            top: 47px;
+            right: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 10px 20px;
+            display: none;
+        }
+
+        .dropdown a{
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1rem;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .dropdown a:hover{
+            color: #fac24e;
+        }
+
+        .user:hover .dropdown{
+            display: block;
+        }
+
+        .post_details{
+            padding: 50px 10px;
+            margin-top: 70px;   
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 90px;
+            min-height: 60vh;
+        }
+        .basic_details{
+            display: flex;
+            justify-content:space-around;
+            align-items: top;
+            width: 100%;
+            overflow: hidden;
+        }
+        .basic_details .text, .basic_details .image, .basic_details .buttons{
+            width: 30%;
+        }
+        .basic_details .image{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            text-align: center;
+        }
+        .basic_details .image button{
+            width: 200px;
+            height: 40px;
+            border: none;
+            border-radius: 20px;
+            background-color: #fac24e;
+            color: #fff;
+            font-weight: 500;
+            font-size: 1rem;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        .basic_details .image button:hover{
+            background-color: #ffd47f;
+            transition: all ease 0.3s;
+        }
+        .basic_details img{
+            border-radius: 20px;
+            object-fit: cover;
+        }
+        .basic_details .image img:hover{
+            transform: scale(1.01);            
+            transition: all ease 0.3s;
+        }
+        .basic_details .buttons{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            text-align: center;
+        }
+        .basic_details .buttons button{
+            width: 200px;
+            height: 40px;
+            border: none;
+            border-radius: 20px;
+            background-color: #fac24e;
+            color: #fff;
+            font-weight: 500;
+            font-size: 1rem;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+        .basic_details .buttons button:hover{
+            background-color: #ffd47f;
+            transition: all ease 0.3s;
+        }
+        .author-details{
+            display: flex;
+            align-items: top;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .time{
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            margin-left: 5px;
+        }
+        .type{
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            margin-left: 5px;
+        }
+        .main-details{
+            padding: 50px 10px;
+            margin: 0 auto;
+            margin-top: 20px;   
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            width: 80%;
+            min-height: 60vh;
+        }
+        
+        .main-details .ingredients{
+            margin:50px;
+            margin-top: 15px;
+        }
+        .main-details .steps{
+            margin:50px;
+            margin-top: 15px;
+        }
+        .end{
+            margin-top: 50px;
+            height: 5vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        footer{
+            width: 100%;
+            height: 100px;
+            background-color: rgb(235, 235, 235);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 100px;
+        }
+        .popup{
+            display: none;
+            position: fixed;
+            top: 50%; /* Center vertically */
+            left: 50%; /* Center horizontally */
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            width: 700px;
+            height: 300px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            z-index: 1000; /* Ensure it's on top of other elements */
+        }
+        .dropdowns{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .dropdowns select{
+            width: 200px;
+            height: 40px;
+            border: none;
+            border-radius: 10px;
+            background-color: white;
+            color: #333;
+            border: 3px solid #fac24e;
+            font-weight: 500;
+            font-size: 1rem;
+            margin: 5px 10px;
+            /* padding: 10px 10px; */
+            cursor: pointer;
+        }
+        .button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .button button{
+            width: 200px;
+            height: 40px;
+            border: none;
+            border-radius: 20px;
+            background-color: #fac24e;
+            color: #fff;
+            font-weight: 500;
+            font-size: 1rem;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+        .close-button{
+            position: absolute;
+            font-size: 2.0rem;
+            top: 15px;
+            right: 30px;
+            cursor: pointer;
+        }
+        .blurred-background {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            z-index: 999;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="logo" height="32px" width="32px" />&nbsp;Recipe<span
+                style="color: #fac24e">Share</span>
+        </div>
+        <div class="menu">
+            <a href="{% url 'home' %}">Home</a>
+            <a href=" {% url 'explore' %}">Explore</a>
+            <a href="{% url 'planner' %}">Planner</a>
+            <a href="{% url 'shopping' %}">Shopping</a>
+            <a href="{% url 'saved' %}">Saved</a>
+        </div>
+        <div class="user">
+            <a href="{% url 'profile_page' %}" class="user-profile">
+                <p style="overflow: hidden;"><i class="fa-solid fa-user"></i>&nbsp;{{ user.first_name }} {{user.last_name }}</p>
+            </a>
+            <div class="dropdown">
+                <a href="{% url 'profile_page' %}" class="">Your Profile</a>
+                <a href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+    </header>
+    <div class="post_details">
+        <div class="basic_details">
+            <div class="text">
+                <h1 style="font-size: 2.5rem;"
+                >{{ post.recipe_name }}</h1>
+                <div class="author-details">
+                <img src="{% static 'images/profile.png'%}" width="25px" height="25px" style="border-radius:50%;">&nbsp;
+                <p> {{post.user.first_name}} {{post.user.last_name}} </p>
+                </div>
+                <br />
+                <div class="time"><i class="fa-regular fa-clock"></i>&nbsp;&nbsp;<p>{{ post.recipe_time }} minutes</p></div>
+                <div class="type">
+                    <i class="fa-solid fa-burger"></i>&nbsp;&nbsp;
+                    <p>{{ post.recipe_type }}</p>
+                </div>
+                <br />
+                <h3>Description</h3>
+                <p>{{ post.description }}</p>
+                <br />
+                <h3>posted on</h3>
+                <p>{{ post.date }}</p>
+            </div>
+            <div class="image">
+                <img src="{{ post.recipe_image.url }}" alt="post_image" height="300px" width="300px" />
+                <a href="{{ post.recipe_image.url }}" target="_blank"
+                ><button>view full image</button></a>
+            </div>
+            <div class="buttons">
+                <button class="save-button" onclick="save_item()" ><i class="fa-solid fa-bookmark"></i>&nbsp;&nbsp;Add to Saved items</button> <br />
+                <button class="shop-button" onclick="shop_item()"><i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;Add to Shopping List</button> <br />
+                <button class="planner-button" onclick="openPopup()"><i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;Add to Meal Planner</button> <br />
+            </div>
+        </div>
+    </div>
+    <div class="main-details">
+        <div class="ingredients">
+            <h1  style="font-size: 2.5rem; color: #fac24e;">Ingredients</h1>
+        <p>{{ post.ingredients }}</p>
+        </div>
+        <br />
+        <div class="steps">
+            <h1  style="font-size: 2.5rem; color: #fac24e;">Steps</h1>
+            <p>{{ post.steps }}</p>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2023 Recipe<span style="color: #fac24e">Share</span>. All rights reserved</p>
+    </footer>
+    <div class="popup" id="popup">
+            <h1 style="font-size: 2.0rem; color: #fac24e;">Meal Planner</h1>
+            <span class="close-button" onclick="closePopup()">&times;</span>
+            <br />
+            <div class="dropdowns">
+                <select name="day" id="day">
+                    <option value="none" selected disabled hidden>Select Day</option>
+                    <option value="monday">Monday</option>
+                    <option value="tuesday">Tuesday</option>
+                    <option value="wednesday">Wednesday</option>
+                    <option value="thursday">Thrusday</option>
+                    <option value="friday">Friday</option>
+                    <option value="saturday">Saturday</option>
+                    <option value="sunday">Sunday</option>
+                </select>
+                <select name="time" id="time">
+                    <option value="none" selected disabled hidden>Select Time</option>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="dinner">Dinner</option>
+                </select>
+        </div>
+        <div class="button">
+            <button class="planner-button" onclick="addToMealPlanner()"><i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;Add to Meal Planner</button> <br />
+        </div>
+    </div>
+    <div id="background" class="blurred-background"></div>
+    <script>
+        function openPopup() {
+            document.getElementById("popup").style.display = "block";
+            document.getElementById("background").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+            document.getElementById("background").style.display = "none";
+        }
+        bg = document.getElementById("background");
+        bg.addEventListener("click", closePopup);
+        function addToMealPlanner(){
+            let uid = "{{user.id}}";
+            let rid = "{{post.id}}";
+            let day = document.getElementById("day").value;
+            let time = document.getElementById("time").value;
+            console.log(uid);
+            console.log(rid);
+            console.log(day);
+            console.log(time);
+            fetch(`/add_to_meal_planner/?uid=${uid}&rid=${rid}&day=${day}&time=${time}`)
+            .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        if(data.status == 200){
+                            alert("Added to Meal Planner");
+                            closePopup();
+                        }
+                        else{
+                            alert("Meal Planner already contains this recipe");
+                        }
+                    });
+        }
+    </script>
+    <script>
+        function save_item()
+        {
+            let uid = "{{user.id}}";
+            let rid = "{{post.id}}";
+            console.log(uid);
+            console.log(rid);
+            fetch(`/save_item/?uid=${uid}&rid=${rid}`)
+            .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        if(data.status == 200){
+                            save = document.querySelector('.save-button');
+                            save.style.backgroundColor = "#77dd77";
+                            save.innerHTML = `<i class="fa-solid fa-bookmark"></i>&nbsp;&nbsp;Saved`;
+                        }
+                        else{
+                            save = document.querySelector('.save-button');
+                            save.style.backgroundColor = "#fac24e";
+                            save.innerHTML = `<i class="fa-solid fa-bookmark"></i>&nbsp;&nbsp;Add to Saved items`;
+                        }
+                    });
+        }
+        function shop_item()
+        {
+            let uid = "{{user.id}}";
+            let rid = "{{post.id}}";
+            console.log(uid);
+            console.log(rid);
+            fetch(`/shop_item/?uid=${uid}&rid=${rid}`)
+            .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        if(data.status == 200){
+                            shop = document.querySelector('.shop-button');
+                            shop.style.backgroundColor = "#77dd77";
+                            shop.innerHTML = `<i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;Added`;
+                        }
+                        else{
+                            shop = document.querySelector('.shop-button');
+                            shop.style.backgroundColor = "#fac24e";
+                            shop.innerHTML = `<i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;Add to Shopping List`;
+                        }
+                    });
+        }
+
+        let uid = "{{user.id}}";
+        let rid = "{{post.id}}";
+        console.log(uid);
+        console.log(rid);
+        fetch(`/check_saved/?uid=${uid}&rid=${rid}`)
+        .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if(data.status == 200){
+                        // change color of save button
+                        save = document.querySelector('.save-button');
+                        save.style.backgroundColor = "#77dd77";
+                        // change text of save button
+                        save.innerHTML = `<i class="fa-solid fa-bookmark"></i>&nbsp;&nbsp;Saved`;
+                    }
+                });
+        fetch(`/check_shop/?uid=${uid}&rid=${rid}`)
+        .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if(data.status == 200){
+                        // change color of shop button
+                        shop = document.querySelector('.shop-button');
+                        shop.style.backgroundColor = "#77dd77";
+                        // change text of shop button
+                        shop.innerHTML = `<i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;Added`;
+                    }
+                });
+    </script>
+</body>
+

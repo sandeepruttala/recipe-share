@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <title>User Profile | RecipeShare</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="{% static 'images/logo.ico' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        user-select: none;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f5f5f5;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        height: 70px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 100;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: #333;
+      }
+
+      .logo img {
+        margin-right: 5px;
+      }
+
+      .menu {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .menu a {
+        margin: 0 20px;
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: all ease 0.3s;
+      }
+
+      .menu a:hover {
+        color: #fac24e;
+      }
+
+      .user {
+        display: flex;
+        align-items: center;
+      }
+
+      .user a {
+        text-decoration: none;
+        color: #333;
+        margin-right: 7px;
+        font-weight: 500;
+        font-size: 1rem;
+      }
+
+      .user a:hover {
+        color: black;
+        transition: all ease 0.3s;
+      }
+
+      .user-profile {
+        display: flex;
+        align-items: center;
+        width: 150px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+      }
+      .dropdown{
+            position: absolute;
+            top: 47px;
+            right: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 10px 20px;
+            display: none;
+        }
+
+        .dropdown a{
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1rem;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .dropdown a:hover{
+            color: #fac24e;
+        }
+        
+        .user:hover .dropdown{
+           display: block;
+        }
+
+      .profile-container {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); */
+        width: 60%;
+        margin: 0 auto;
+        margin-top: 80px;
+        display: flex;
+      }
+
+      .profile-details {
+        flex: 1;
+        padding-right: 20px;
+      }
+
+      .profile-details h2 {
+        font-size: 24px;
+        color: #fac24e;
+        margin-top: 10px;
+      }
+      .profile-details p {
+        margin-left: 2px;
+      }
+      .profile-pic {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background-color: #ddd;
+        display: inline-block;
+        overflow: hidden;
+      }
+
+      .profile-pic img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .your-posts-container {
+        background-color: #fff;
+        /* border-radius: 10px; */
+        padding: 20px;
+        /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); */
+        width: 60%;
+        margin: 20px auto;
+        margin-bottom: 0px;
+      }
+
+      .your-posts-container .heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .create {
+        padding: 10px 20px;
+        background-color: #fac24e;
+        color: #333;
+        border-radius: 20px;
+        cursor: pointer;
+        border: none;
+        outline: none;
+      }
+
+      .create:hover {
+        background-color: #ffd47f;
+        transition: all ease 0.3s;
+      }
+
+      .posts{
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 60%;
+            background-color: #fff;
+            margin: 0 auto;
+            margin-top: 5px;
+            min-height: 60vh;
+        }
+        .post-link{
+            text-decoration: none;
+            color: #333;
+        }
+        .post{
+            background-color: #fff;
+            width: 300px;
+            height: 410px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* padding: 10px 20px; */
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all ease 0.3s;
+            scale: 0.7;
+        }
+        .post:hover{
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+        .post .recipe-image{
+            width: 300px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 20px 20px 0 0;
+        }
+        .post .post-info{
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            padding: 0 20px;
+            /* margin-bottom: 10px; */
+        }
+        .post-info h3{
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-left: 2px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .post-info .author-details{
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .post-info .author-details img{
+            margin-left: -4px;
+        }
+        .post-info .time{
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        footer{
+            width: 100%;
+            height: 100px;
+            background-color: rgb(235, 235, 235);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 100px;
+        }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+          <img src="{% static 'images/logo.png' %}" alt="logo" height="32px" width="32px" />&nbsp;Recipe<span
+              style="color: #fac24e">Share</span>
+      </div>
+      <div class="menu">
+        <a href="{% url 'home' %}">Home</a>
+        <a href=" {% url 'explore' %}">Explore</a>
+        <a href="{% url 'planner' %}">Planner</a>
+        <a href="{% url 'shopping' %}">Shopping</a>
+        <a href="{% url 'saved' %}">Saved</a>
+      </div>
+      <div class="user">
+          <a href="{% url 'profile_page' %}" class="user-profile">
+              <p style="overflow: hidden;"><i class="fa-solid fa-user"></i>&nbsp;{{ user.first_name }} {{user.last_name }}</p>
+          </a>
+          <div class="dropdown">
+              <a href="{% url 'profile_page' %}" class="">Your Profile</a>
+              <a href="{% url 'logout' %}">Logout</a>
+          </div>
+      </div>
+  </header>
+    <div class="profile-container">
+      <div class="profile-details">
+        <h1>Profile</h1>
+        <h2>{{user.first_name}} {{user.last_name}}</h2>
+        <p style="color: gray">{{user.email}}</p>
+      </div>
+      <div class="profile-pic">
+        <img  src="{%static 'images/profile.png'%}" alt="Profile Picture" />
+      </div>
+    </div>
+
+    <div class="your-posts-container">
+      <div class="heading">
+        <h2>Your <span style="color: #fac24e">Recipes</span></h2>
+        <a href="{% url 'create_post' %}"><button class="create">Create Post&nbsp;<i class="fa-solid fa-circle-plus"></i></button></a>
+      </div>
+    </div>
+    <div class="posts">
+      <h1 style = "margin: 0 auto;">No <span style="color: #fac24e">Recipes</span>
+         Found</h1>
+    </div>
+    <footer>
+      <p>&copy; 2023 Recipe<span style="color: #fac24e">Share</span>. All rights reserved</p>
+  </footer>
+  <script>
+    // get posts of this user from database
+    // display them in the posts div
+    let posts = document.querySelector(".posts");
+    const user_id = "{{user.id}}";
+    function fetch_user_posts()
+    {
+      fetch(`/get_user_posts/?user=${user_id}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        if(data.data.length > 1)
+                          posts.innerHTML = `<h1> </h1>`;
+                        let post = '';
+                        data.data.forEach(element => {
+                            console.log(element);
+                            post_code = `/post_details/${element.recipe_id}`;
+                            post += `<a class="post-link" href="${post_code}"><div class="post">
+                    <img class="recipe-image" src="${element.recipe_image}" alt="recipe-image">
+                    <div class="post-info">
+                        <h3>${element.recipe_name}</h3>
+                        <div class="author-details">
+                            <img src="{% static 'images/profile.png'%}" width="25px" height="25px" style="border-radius:50%;">&nbsp;${element.user_first_name} ${element.user_last_name}        
+                        </div>
+                        <div class="time">
+                            <i class="fa-regular fa-clock"></i>&nbsp;${element.recipe_time} minutes
+                        </div>
+                        <div class="type">
+                            <i class="fa-solid fa-burger"></i>&nbsp;${element.recipe_type}
+                        </div>
+                    </div>
+                    </div>
+                `;
+                        });
+                        document.querySelector('.posts').innerHTML += post;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            };
+    fetch_user_posts();
+  </script>
+  </body>
+</html>

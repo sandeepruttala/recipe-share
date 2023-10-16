@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'images/logo.ico' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <title>Recipes | Home</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        #activepage {
+            padding: 5px 20px;
+            background-color: #ffd47f;
+            border-radius: 20px;
+        }
+
+        #activepage:hover {
+            color: black;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            height: 70px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .logo img {
+            margin-right: 5px;
+
+        }
+
+        .menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu a {
+            margin: 0 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all ease 0.3s;
+        }
+
+        .menu a:hover {
+            color: #fac24e;
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+        }
+
+        .user a {
+            text-decoration: none;
+            color: #333;
+            margin-right: 7px;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .user a:hover {
+            color: black;
+            transition: all ease 0.3s;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            width: 150px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        .dropdown{
+            position: absolute;
+            top: 47px;
+            right: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 10px 20px;
+            display: none;
+        }
+
+        .dropdown a{
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1rem;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .dropdown a:hover{
+            color: #fac24e;
+        }
+
+        .user:hover .dropdown{
+            display: block;
+        }
+        footer{
+            width: 100%;
+            height: 100px;
+            background-color: rgb(235, 235, 235);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="logo" height="32px" width="32px" />&nbsp;Recipe<span
+                style="color: #fac24e">Share</span>
+        </div>
+        <div class="menu">
+            <a href="{% url 'home' %}" id="activepage">Home</a>
+            <a href=" {% url 'explore' %}">Explore</a>
+            <a href="{% url 'planner' %}">Planner</a>
+            <a href="{% url 'shopping' %}">Shopping</a>
+            <a href="{% url 'saved' %}">Saved</a>
+        </div>
+        <div class="user">
+            <a href="{% url 'profile_page' %}" class="user-profile">
+                <p style="overflow: hidden;"><i class="fa-solid fa-user"></i>&nbsp;{{ user.first_name }} {{user.last_name }}</p>
+            </a>
+            <div class="dropdown">
+                <a href="{% url 'profile_page' %}" class="">Your Profile</a>
+                <a href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+    </header>
+    <footer>
+        <p>&copy; 2023 Recipe<span style="color: #fac24e">Share</span>. All rights reserved</p>
+    </footer>
+
+</body>
+
