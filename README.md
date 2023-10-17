@@ -2,9 +2,9 @@
 
 ## A Recipe sharing website made with HTML, CSS, JS & Django.
 
-### Instructions: (make sure that `Git` is installed on your system)
+### Instructions: (make sure that 'Git' is installed on your system)
 1. Open your terminal or command prompt window
-2. Clone the project repository to your local machine: `git clone https://github.com/sandeepruttala/recipe-share`
+2. Clone the project repository: `git clone https://github.com/sandeepruttala/recipe-share`
 3. Now open the terminal at the "recipe-share" directory
 4. (Optional) Create a virtual environment for isolating dependencies
 5. Install project requirements: `pip install -r requirements.txt`
