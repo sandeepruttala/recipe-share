@@ -456,6 +456,11 @@
             let rid = "{{post.id}}";
             let day = document.getElementById("day").value;
             let time = document.getElementById("time").value;
+            // alert if day or time is not selected
+            if(day == "none" || time == "none"){
+                alert("Please select day and time");
+                return;
+            }
             console.log(uid);
             console.log(rid);
             console.log(day);
@@ -548,6 +553,7 @@
                         shop.innerHTML = `<i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;Added`;
                     }
                 });
+        
     </script>
 </body>
 
