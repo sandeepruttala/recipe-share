@@ -116,33 +116,33 @@
         font-weight: 500;
         font-size: 1rem;
       }
-      .dropdown{
-            position: absolute;
-            top: 47px;
-            right: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            padding: 10px 20px;
-            display: none;
-        }
+      .dropdown {
+        position: absolute;
+        top: 47px;
+        right: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 10px 20px;
+        display: none;
+      }
 
-        .dropdown a{
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            font-size: 1rem;
-            display: block;
-            margin: 10px 0;
-        }
+      .dropdown a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        font-size: 1rem;
+        display: block;
+        margin: 10px 0;
+      }
 
-        .dropdown a:hover{
-            color: #fac24e;
-        }
+      .dropdown a:hover {
+        color: #fac24e;
+      }
 
-        .user:hover .dropdown{
-            display: block;
-        }
+      .user:hover .dropdown {
+        display: block;
+      }
 
       .create-post-container {
         background-color: #fff;
@@ -231,24 +231,28 @@
       button[type="submit"]:hover {
         background-color: #e0a542;
       }
-      footer{
-            width: 100%;
-            height: 100px;
-            background-color: rgb(235, 235, 235);
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-top: 100px;
-        }
+      footer {
+        width: 100%;
+        height: 100px;
+        background-color: rgb(235, 235, 235);
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 100px;
+      }
     </style>
   </head>
   <body>
     <header>
       <div class="logo">
-          <img src="{% static 'images/logo.png' %}" alt="logo" height="32px" width="32px" />&nbsp;Recipe<span
-              style="color: #fac24e">Share</span>
+        <img
+          src="{% static 'images/logo.png' %}"
+          alt="logo"
+          height="32px"
+          width="32px"
+        />&nbsp;Recipe<span style="color: #fac24e">Share</span>
       </div>
       <div class="menu">
         <a href="{% url 'home' %}">Home</a>
@@ -258,15 +262,18 @@
         <a href="{% url 'saved' %}">Saved</a>
       </div>
       <div class="user">
-          <a href="{% url 'profile_page' %}" class="user-profile">
-              <p style="overflow: hidden;"><i class="fa-solid fa-user"></i>&nbsp;{{ user.first_name }} {{user.last_name }}</p>
-          </a>
-          <div class="dropdown">
-              <a href="{% url 'profile_page' %}" class="">Your Profile</a>
-              <a href="{% url 'logout' %}">Logout</a>
-          </div>
+        <a href="{% url 'profile_page' %}" class="user-profile">
+          <p style="overflow: hidden">
+            <i class="fa-solid fa-user"></i>&nbsp;{{ user.first_name }}
+            {{user.last_name }}
+          </p>
+        </a>
+        <div class="dropdown">
+          <a href="{% url 'profile_page' %}" class="">Your Profile</a>
+          <a href="{% url 'logout' %}">Logout</a>
+        </div>
       </div>
-  </header>
+    </header>
 
     <div class="create-post-container">
       <div class="form-container">
@@ -276,7 +283,7 @@
           method="post"
           enctype="multipart/form-data"
         >
-        {% csrf_token %}
+          {% csrf_token %}
           <div class="create-post-heading">
             Create New <span style="color: #fac24e">Post</span>
           </div>
@@ -286,7 +293,14 @@
             placeholder="Title of Recipe"
             required
           />
-          <label style="margin-left: -360px; margin-bottom:5px;color: grey; font-size: 15px;" for="image-input"
+          <label
+            style="
+              margin-left: -360px;
+              margin-bottom: 5px;
+              color: grey;
+              font-size: 15px;
+            "
+            for="image-input"
             >Upload Image:</label
           >
           <input
@@ -309,9 +323,15 @@
           ></textarea>
           <textarea
             name="ingredients"
-            placeholder="Ingredients (write each ingredient seperated by a comma(,)." 
-            required></textarea>
-          <textarea name="steps" placeholder="Steps" required></textarea>
+            placeholder="Ingredients (write each ingredient seperated by a comma(,))."
+            wrap="hard"
+            required
+          ></textarea>
+          <textarea 
+          name="steps" 
+          placeholder="Steps" 
+          wrap="hard"
+          required></textarea>
           <select name="recipe_type">
             <option value="none">--type of recipe--</option>
             <option value="breakfast">Breakfast</option>
@@ -334,8 +354,11 @@
       </div>
     </div>
     <footer>
-      <p>&copy; 2023 Recipe<span style="color: #fac24e">Share</span>. All rights reserved</p>
-  </footer>
+      <p>
+        &copy; 2023 Recipe<span style="color: #fac24e">Share</span>. All rights
+        reserved
+      </p>
+    </footer>
     <script>
       const imageInput = document.getElementById("image-input");
       const imagePreview = document.getElementById("image-preview");

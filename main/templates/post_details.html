@@ -401,12 +401,12 @@
     <div class="main-details">
         <div class="ingredients">
             <h1  style="font-size: 2.5rem; color: #fac24e;">Ingredients</h1>
-        <p>{{ post.ingredients }}</p>
+        <p>{{ post.ingredients | linebreaks }}</p>
         </div>
         <br />
         <div class="steps">
             <h1  style="font-size: 2.5rem; color: #fac24e;">Steps</h1>
-            <p>{{ post.steps }}</p>
+            <p>{{ post.steps | linebreaks }}</p>
         </div>
     </div>
     <footer>
