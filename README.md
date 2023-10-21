@@ -10,7 +10,7 @@
 5. Install project requirements: `pip install -r requirements.txt`
 6. Make Migrations: `python manage.py makemigrations`
 7. Migrate the database: `python manage.py migrate`
-8. only follow these steps when opening for first time from next time only follow step 9.
+8. Only follow these steps when opening for first time & from next time only follow step 9 to open the project.
 9. Start the server: `python manage.py runserver`
 10. Click on the URL displayed in the cmd or open http://127.0.0.1:8000/ in your browser.
 11. That's it!
@@ -24,7 +24,7 @@ start using by registering a user! 🙃
 4. Install project requirements: `pip install -r requirements.txt`
 5. Make Migrations: `python manage.py makemigrations`
 6. Migrate the database: `python manage.py migrate`
-7. only follow these steps when opening for first time from next time only follow step 9.
+7. Only follow these steps when opening for first time & from next time only follow step 9 to open the project.
 8. Start the server: `python manage.py runserver`
 9. Click on the URL displayed in the cmd or open http://127.0.0.1:8000/ in your browser.
 10. That's it!
