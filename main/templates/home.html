@@ -206,6 +206,7 @@
             border-radius: 20px;
             cursor: pointer;
             transition: all ease 0.3s;
+            overflow: scroll;
         }
         .post:hover{
             transform: translateY(-10px);
@@ -286,9 +287,9 @@
     <div class="welcome">
         <div class="message">Welcome <span style="color: white;">"{{ user.first_name }} {{ user.last_name }}"
             </span>, Get ready to discover delicious recipes and create culinary magic.</div>
-        <!-- <div class="buttons">
-            <a href="#feed"><button>Go to feed</button></a>
-        </div> -->
+        <div class="buttons">
+            <a href="{% url 'create_post' %}"><button>Create Post&nbsp;<i class="fa-solid fa-circle-plus"></i></button></a>
+        </div>
     </div>
     <!-- <div class="today-special">
         today-special

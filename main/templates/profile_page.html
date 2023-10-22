@@ -227,6 +227,7 @@
             cursor: pointer;
             transition: all ease 0.3s;
             scale: 0.7;
+            overflow: scroll;
         }
         .post:hover{
             transform: translateY(-10px);
@@ -321,8 +322,6 @@
       </div>
     </div>
     <div class="posts">
-      <h1 style = "margin: 0 auto;">No <span style="color: #fac24e">Recipes</span>
-         Found</h1>
     </div>
     <footer>
       <p>&copy; 2023 Recipe<span style="color: #fac24e">Share</span>. All rights reserved</p>
@@ -337,10 +336,12 @@
       fetch(`/get_user_posts/?user=${user_id}`)
                     .then(response => response.json())
                     .then(data => {
+                      if(data.data.length == 0){
+                            posts.innerHTML = `<h1 style="margin: 0 auto;">No <span style="color: #fac24e;">Recipes</span> Found</h1>`;
+                        }
                         console.log(data);
-                        if(data.data.length > 1)
-                          posts.innerHTML = `<h1> </h1>`;
                         let post = '';
+                        // posts.innerHTML = '';
                         data.data.forEach(element => {
                             console.log(element);
                             post_code = `/post_details/${element.recipe_id}`;

@@ -153,7 +153,7 @@
             /* background-color: #fff; */
             margin: 0 auto;
             margin-top: 15px;
-            min-height: 50vh;
+            min-height: 55vh;
         }
         .post-link{
             text-decoration: none;
@@ -234,7 +234,8 @@
                     .then(data => {
                         console.log(data);
                         if(data.data.length == 0){
-                            posts.innerHTML = `<h1>Shopping List is <span style="color: #fac24e;">Empty</span></h1>`;
+                            posts.innerHTML = `<h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+                            >Shopping List is <span style="color: #fac24e;">Empty</span></h1>`;
                         }
                         let post = '';
                         data.data.forEach(element => {

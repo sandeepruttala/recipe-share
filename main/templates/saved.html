@@ -154,7 +154,7 @@
             /* background-color: #fff; */
             margin: 0 auto;
             margin-top: 5px;
-            min-height: 50vh;
+            min-height: 55vh;
         }
         .post-link{
             text-decoration: none;
@@ -170,6 +170,7 @@
             cursor: pointer;
             transition: all ease 0.3s;
             scale: 0.8;
+            overflow: scroll;
         }
         .post:hover{
             transform: translateY(-10px);
@@ -266,7 +267,7 @@
                     .then(data => {
                         console.log(data);
                         if(data.data.length == 0){
-                            posts.innerHTML = `<h1>No Saved <span style="color: #fac24e;">Recipes</span></h1>`;
+                            posts.innerHTML = `<h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">No Saved <span style="color: #fac24e;">Recipes</span></h1>`;
                         }
                         let post = '';
                         data.data.forEach(element => {
