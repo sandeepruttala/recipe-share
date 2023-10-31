@@ -330,4 +330,13 @@ def planner_data(request):
         print(data)
         return JsonResponse({'data':data})
 
+def delete_post(request):
+    if request.method == 'GET':
+        recipe = request.GET.get('rid','')
+        print(recipe)
+        try:
+            UserPost.objects.filter(id = recipe).delete()
+            return JsonResponse({'status':200})
+        except:
+            return JsonResponse({'status':400})
 

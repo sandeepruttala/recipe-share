@@ -338,6 +338,19 @@
             backdrop-filter: blur(5px);
             z-index: 999;
         }
+        .delete button{
+            width: 200px;
+            height: 40px;
+            border: none;
+            border-radius: 20px;
+            background-color: #fac24e;
+            color: #fff;
+            font-weight: 500;
+            font-size: 1rem;
+            margin: 5px 0;
+            margin-left: 40px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -407,6 +420,9 @@
         <div class="steps">
             <h1  style="font-size: 2.5rem; color: #fac24e;">Steps</h1>
             <p>{{ post.steps | linebreaks }}</p>
+        </div>
+        <div class="delete">
+            <button class="delete-button" onclick="delete_post()"><i class="fa-solid fa-trash"></i>&nbsp;&nbsp;Delete Post</button> <br />
         </div>
     </div>
     <footer>
@@ -524,7 +540,20 @@
                         }
                     });
         }
-
+        function delete_post()
+        {
+            let rid = "{{post.id}}";
+            console.log(rid);
+            fetch(`/delete_post/?rid=${rid}`)
+            .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        if(data.status == 200){
+                            alert("Post Deleted");
+                            window.location.href = "{% url 'profile_page' %}";
+                        }
+                    });
+        }
         let uid = "{{user.id}}";
         let rid = "{{post.id}}";
         console.log(uid);
@@ -553,7 +582,10 @@
                         shop.innerHTML = `<i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;Added`;
                     }
                 });
-        
+        let delete_button = document.querySelector('.delete-button');
+        if (uid != "{{post.user.id}}"){
+            delete_button.style.display = "none";
+        }
     </script>
 </body>
 

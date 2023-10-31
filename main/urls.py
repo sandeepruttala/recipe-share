@@ -26,4 +26,5 @@ urlpatterns = [
     path('get_shop/',views.get_shop,name='get_shop' ),
     path('add_to_meal_planner/',views.add_to_meal_planner,name='add_to_meal_planner' ),
     path('planner_data/',views.planner_data,name='planner_data' ),
+    path('delete_post/',views.delete_post,name='delete_post' ),
 ]
