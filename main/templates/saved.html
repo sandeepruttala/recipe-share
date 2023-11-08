@@ -161,7 +161,7 @@
         .posts{
             display: flex;
             justify-content: left;
-            align-items: center;
+            /* align-items: center; */
             flex-wrap: wrap;
             width: 90%;
             /* background-color: #fff; */
@@ -176,13 +176,14 @@
         .post{
             background-color: #fff;
             width: 300px;
-            height: 410px;
+            /* height: 410px; */
+            height: fit-content;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            /* padding: 10px 20px; */
+            padding-bottom: 20px;
+            margin: 10px;
             border-radius: 20px;
             cursor: pointer;
             transition: all ease 0.3s;
-            scale: 0.8;
             overflow: scroll;
         }
         .post:hover{
@@ -194,11 +195,12 @@
             height: 250px;
             object-fit: cover;
             border-radius: 20px 20px 0 0;
+            margin-bottom: 5px;
         }
         .post .post-info{
             display: flex;
             flex-direction: column;
-            align-items: left;
+            align-items: center;
             padding: 0 20px;
             /* margin-bottom: 10px; */
         }
@@ -207,21 +209,6 @@
             font-weight: 500;
             margin-left: 2px;
             color: #333;
-            margin-bottom: 10px;
-        }
-        .post-info .author-details{
-            display: flex;
-            align-items: center;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-        .post-info .author-details img{
-            margin-left: -4px;
-        }
-        .post-info .time{
-            display: flex;
-            align-items: center;
-            font-size: 1.1rem;
             margin-bottom: 10px;
         }
         .type{
@@ -298,17 +285,13 @@
                     <img class="recipe-image" src="${element.recipe_image}" alt="recipe-image">
                     <div class="post-info">
                         <h3>${element.recipe_name}</h3>
-                        <div class="author-details">
-                            <img src="{% static 'images/profile.png'%}" width="25px" height="25px" style="border-radius:50%;">&nbsp;${element.user_first_name} ${element.user_last_name}        
-                        </div>
-                        <div class="time">
-                            <i class="fa-regular fa-clock"></i>&nbsp;${element.recipe_time} minutes
-                        </div>
+                        
                         <div class="type">
                             <i class="fa-solid fa-burger"></i>&nbsp;${element.recipe_type}
                         </div>
-                    </div>
-                    </div>
+                        </div>
+                        </div>
+                        </a>
                 `;
                         });
                         document.querySelector('.posts').innerHTML += post;
@@ -347,5 +330,5 @@
                 });
             });
         });
-    </script>    
+    </script>
 </body>
