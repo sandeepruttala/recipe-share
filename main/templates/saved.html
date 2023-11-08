@@ -83,57 +83,70 @@
             color: #fac24e;
         }
 
-        .user {
+        .dropdown {
+            min-width: 6em;
+            position: relative;
+            margin: 2em;
+        }
+
+        .dropdown * {
+            box-sizing: border-box;
+        }
+
+        .select {
+            font-family: 'Poppins', sans-serif;
+            background: white;
+            color:#333;
+            min-width: 6.5%;
             display: flex;
             align-items: center;
+            border: none;
+            border-radius: 5px;
+            padding: 0.5em;
+            /* font-weight: 600; */
+            cursor: pointer;
+            position: relative;
         }
 
-        .user a {
-            text-decoration: none;
-            color: #333;
-            margin-right: 7px;
-            font-weight: 500;
-            font-size: 1rem;
+        .caret {
+            color : #333;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid black;
+            transform: translateX(50%);
+            /* position: absolute; */
+            right: 10px;
         }
 
-        .user a:hover {
-            color: black;
-            transition: all ease 0.3s;
+        .caret-rotate {
+            transform: rotate(180deg);
         }
 
-        .user-profile {
-            display: flex;
-            align-items: center;
-            width: 150px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-        }
-        .dropdown{
+        .menu1 {
+            font-family: 'Poppins', sans-serif;
+            list-style: none;
+            padding: 0.5em 1.2em;
+            background: white;
             position: absolute;
-            top: 47px;
-            right: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            padding: 10px 20px;
+            border-radius: 5px;
+            top: 40px;
+            right: 0;
+            box-shadow: 0 0 10px rgba(117, 117, 117, 0.2);
+            opacity: 0;
             display: none;
+            z-index: 1;
         }
 
-        .dropdown a{
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            font-size: 1rem;
-            display: block;
-            margin: 10px 0;
+        .menu1 li {
+            padding: 0.5em 0.4em;
+            margin: 0.3em 0;
+            cursor: pointer;
         }
 
-        .dropdown a:hover{
-            color: #fac24e;
-        }
-
-        .user:hover .dropdown{
+        .menu1-open {
+            opacity: 1;
             display: block;
         }
 
@@ -211,6 +224,13 @@
             font-size: 1.1rem;
             margin-bottom: 10px;
         }
+        .type{
+            background-color: #facc72;
+            border-radius: 20px;
+            padding: 5px 10px;
+            width: fit-content;
+            margin-left: -2px;
+        }
         footer{
             width: 100%;
             height: 100px;
@@ -238,14 +258,15 @@
             <a href="{% url 'shopping' %}">Shopping</a>
             <a href="{% url 'saved' %}"  id="activepage">Saved</a>
         </div>
-        <div class="user">
-            <a href="{% url 'profile_page' %}" class="user-profile">
-                <p style="overflow: hidden;"><i class="fa-solid fa-user"></i>&nbsp;{{ user.first_name }} {{user.last_name }}</p>
-            </a>
-            <div class="dropdown">
-                <a href="{% url 'profile_page' %}" class="">Your Profile</a>
-                <a href="{% url 'logout' %}">Logout</a>
+        <div class="dropdown">
+            <div class="select">
+                <span class="selected"><i class="fa-solid fa-user"></i>&nbsp;&nbsp;{{ user.first_name }} {{user.last_name }}&nbsp;</span>
+                <div class="caret"></div>
             </div>
+            <ul class="menu1">
+                <li href="">Profile</li>
+                <li href="">Logout</li>
+            </ul>
         </div>
     </header>
     <br><br><br><br>
@@ -298,4 +319,33 @@
             };
         get_saved();
     </script>
+    <script>
+        const dropdowns = document.querySelectorAll('.dropdown');
+  
+        dropdowns.forEach(dropdown => {
+            const select = dropdown.querySelector('.select');
+            const caret = dropdown.querySelector('.caret');
+            const menu = dropdown.querySelector('.menu1');
+  
+            select.addEventListener('click', () => {
+                menu.classList.toggle('menu1-open');
+                caret.classList.toggle('caret-rotate');
+            });
+  
+            const options = menu.querySelectorAll('li');
+            options.forEach(option => {
+                option.addEventListener('click', () => {
+                    if (option.innerText === 'Profile') {
+                        window.location.href = "{% url 'profile_page' %}"; 
+                    } else if (option.innerText === 'Logout') {
+                        window.location.href = "{% url 'logout' %}"; 
+                    } else {
+                        select.querySelector('.selected').innerText = option.innerText;
+                    }
+                    menu.classList.remove('menu1-open');
+                    caret.classList.remove('caret-rotate');
+                });
+            });
+        });
+    </script>    
 </body>
