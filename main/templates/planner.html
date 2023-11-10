@@ -226,6 +226,23 @@
             font-size: 1.5rem;
             display: block;
         }
+        .ClearPlanner{
+            width: 100px;
+            height: 50px;
+            background-color: #fac24e;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #333;
+            margin: 0 auto;
+            display: block;
+            cursor: pointer;
+            transition: all ease 0.3s;
+        }
+        .ClearPlanner:hover{
+            background-color: #ffd47f;
+        }
         footer{
             width: 100%;
             height: 100px;
@@ -462,6 +479,8 @@
                 <div class="meal-link"><a></a></div>
             </div>
         </div>
+    <br><br>
+    <button class="ClearPlanner" onClick="ClearPlanner()">Reset</button>
     <footer>
         <p>&copy; 2023 Recipe<span style="color: #fac24e">Share</span>. All rights reserved</p>
     </footer>
@@ -695,6 +714,22 @@
 
                 
             })
+    </script>
+    <script>
+        function ClearPlanner(){
+            console.log("ClearPlanner");
+            if (confirm ("Are you sure you want to reset your planner?")){
+                fetch(`clear_planner?uid=${uid}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if(data.status==200){
+                        alert("Planner Cleared Successfully");
+                        location.reload();
+                    }
+                });
+            }
+        }
     </script>
     <script>
         const dropdowns = document.querySelectorAll('.dropdown');

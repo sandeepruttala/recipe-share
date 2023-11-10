@@ -340,3 +340,12 @@ def delete_post(request):
         except:
             return JsonResponse({'status':400})
 
+def clear_planner(request):
+    if request.method == 'GET':
+        user = request.GET.get('uid','')
+        print(user)
+        try:
+            MealPlanner.objects.filter(user_id = user).delete()
+            return JsonResponse({'status':200})
+        except:
+            return JsonResponse({'status':400})
