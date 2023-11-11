@@ -255,6 +255,7 @@
                         data.data.forEach(element => {
                             console.log(element);
                             post_code = `/post_details/${element.recipe_id}`;
+                            let ingredients = element.ingredients.split('\n');
                             post += `
                                 <div class="post"
                                         <span style="font-size: 2.0rem; font-weight: 500; color: #333;">
@@ -263,7 +264,7 @@
                                         </span>
                                         <div class="ingredients" style="margin-top: 20px;"> 
                                             <span style="font-size: 1.5rem; font-weight: 500; color: #505050;">
-                                            ${element.ingredients}
+                                            ${ingredients.join('<br>')}
                                             </span>
                                         </div>
                                         <div class="post-link" style="text-align:right;">
