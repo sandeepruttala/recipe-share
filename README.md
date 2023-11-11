@@ -19,7 +19,7 @@ start using by registering a user! 🙃
 
 ### Instructions: (Without using 'Git')
 1. Download Zip file and extract it
-2. Now open the terminal or command prompt at the "recipe-share" directory
+2. Now open the terminal or command prompt at the "recipe-share-main" directory
 3. (Optional) Create a virtual environment for isolating dependencies
 4. Install project requirements: `pip install -r requirements.txt`
 5. Make Migrations: `python manage.py makemigrations`
